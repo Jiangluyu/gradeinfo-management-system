@@ -1,0 +1,47 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}用户信息{% endblock %}
+{% block content %}
+    {% if request.session.is_login %}
+        {% if request.session.user_name == 'jly' %}
+            <div class="panel panel-default">
+                <div class="container">
+                  <!-- Default panel contents -->
+                  <div class="panel-heading">用户信息</div>
+                  <div class="panel-body">
+                    <p>若需查看更多，请进入后台</p>
+                  </div>
+
+                  <!-- Table -->
+                  <table class="table table-striped" align="center">
+                      <tr>
+                          <th>name</th>
+                          <th>sex</th>
+                          <th>email</th>
+                          <th>c_kind</th>
+                          <th>c_time</th>
+                      </tr>
+
+                          {% for usr in all_user %}
+                              <tr>
+                              <td>{{ usr.name }}</td>
+                              <td>{{ usr.sex }}</td>
+                              <td>{{ usr.email }}</td>
+                              <td>{{ usr.c_kind }}</td>
+                              <td>{{ usr.c_time }}</td>
+                              </tr>
+                          {% endfor %}
+                  </table>
+                {% else %}
+                    <div class="container">
+                        <h1>权限不足，只能访问公开内容！</h1>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="container">
+                    <h1>权限不足，只能访问公开内容！</h1>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

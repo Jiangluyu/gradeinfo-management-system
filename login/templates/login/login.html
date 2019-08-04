@@ -8,20 +8,13 @@
 {% block content %}
 <div class="container">
     <div class="col-md-4 col-md-offset-4">
-      <form class='form-login' action="/login/" method="post">
-          {% if message %}
-              <div class="alert alert-warning">
-                  {{ message }}
-              </div>
-          {% endif %}
+      <form class='form-login' action="/login/" method="post"> {% if message %} <div class="alert alert-warning">{{ message }}</div> {% endif %}
           {% csrf_token %}
           <h2 class="text-center">欢迎登录</h2>
-
           <div class="form-group">
               {{ login_form.username.label_tag }}
               {{ login_form.username}}
           </div>
-
           <div class="form-group">
               {{ login_form.password.label_tag }}
               {{ login_form.password }}
@@ -33,10 +26,17 @@
               {{ login_form.captcha }}
           </div>
 
+          <div>
+              <a href="/forget/">忘记密码？</a>
+              <br>
+              <a href="/register/">没有账号？点我注册</a>
+          </div>
+          <br>
           <button type="reset" class="btn btn-default pull-left">重置</button>
           <button type="submit" class="btn btn-primary pull-right">提交</button>
       </form>
     </div>
 </div>
+
 <!-- /container -->
 {% endblock %}

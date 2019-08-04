@@ -1,10 +1,17 @@
-{#login/templates/login/index.html#}
 {% extends 'login/base.html' %}
 {% block title %}主页{% endblock %}
 {% block content %}
     {% if request.session.is_login %}
-        <h1> 你好,{{ request.session.user_name }}!欢迎回来！</h1>
+        <div class="container">
+            <h1>你好,{{ request.session.user_name }}！欢迎回来！</h1>
+        </div>
     {% else %}
-        <h1> 你尚未登录，只能访问公开内容！</h1>
+        <div class="jumbotron" align="left">
+            <div class="container">
+              <h1>Hello, world!</h1>
+              <p>欢迎来到学生信息管理中心，要获取更多消息，敬请登录！</p><br>
+              <p><a class="btn btn-primary btn-lg" href="/login/" role="button">Sign In</a></p>
+            </div>
+        </div>
     {% endif %}
-{% endblock %} </pre>
+{% endblock %}

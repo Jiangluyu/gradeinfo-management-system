@@ -1,0 +1,70 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}成绩信息{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="container">
+          <!-- Default panel contents -->
+            <div class="panel-heading"><h2>{{ student_id }} {{ exact_student.student_name }}</h2></div>
+          <div class="panel-body">
+            <p>下面是该同学成绩表</p>
+          </div>
+          <!-- Table -->
+        <form class="form-delete" action="/delete/" method="post">
+          <table id="grades" class="table table-striped" align="center">
+              {% if request.session.c_kind == "高级用户" %}
+              <tr>
+                  <th>#</th>
+                  <th>class_id</th>
+                  <th>class_name</th>
+                  <th>grade</th>
+                  <th>grade_point</th>
+              </tr>
+                  {% for grd in exact_grade %}
+                      <tr>
+                          <td><input type="checkbox" name="check_box_list" value="{{ grd.class_id }}"></td>
+                          <td>{{ grd.class_id }}</td>
+                          <td>{{ grd.class_name }}</td>
+                          <td><a href="#" id="grade" data-type="text" data-title="grade" data-pk="{{ student_id }},{{ grd.class_id }}">{{ grd.grade }}</a></td>
+                          <td>{{ grd.grade_point }}</td>
+                      </tr>
+                  {% endfor %}
+              {% else %}
+                  <tr>
+                  <th>class_id</th>
+                  <th>class_name</th>
+                  <th>grade</th>
+                  <th>grade_point</th>
+              </tr>
+                  {% for grd in exact_grade %}
+                      <tr>
+                          <td>{{ grd.class_id }}</td>
+                          <td>{{ grd.class_name }}</td>
+                          <td>{{ grd.grade }}</td>
+                          <td>{{ grd.grade_point }}</td>
+                      </tr>
+                  {% endfor %}
+              {% endif %}
+          {% if request.session.c_kind == "高级用户" %}
+          </table>
+            <button type="submit" class="btn btn-primary pull-right">删除</button>
+              </form>
+            <a href="/classinfo/gradeadd/?student_id={{ student_id }}"><button type="button" class="btn btn-primary pull-right">添加</button></a>
+          {% endif %}
+            <br>
+            <br>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function() {
+            $('#grades a').editable({
+                url: '/update/',
+            });
+        });
+    </script>
+{% endblock %}

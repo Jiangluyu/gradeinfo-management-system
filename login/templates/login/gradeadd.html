@@ -1,0 +1,34 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}添加成绩信息{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+      <form class="form-gradeadd" method="post">
+          {% if message %}
+              <div class="alert alert-warning">
+                  {{ message }}
+              </div>
+          {% endif %}
+          {% csrf_token %}
+          <h2 class="text-center">请输入课程及成绩</h2>
+          <div class="form-group">
+              {{ grade_form.new_class_id.label_tag }}
+              {{ grade_form.new_class_id }}
+          </div>
+          <div class="form-group">
+              {{ grade_form.new_class_name.label_tag }}
+              {{ grade_form.new_class_name }}
+          </div>
+          <div class="form-group">
+              {{ grade_form.new_grade.label_tag }}
+              {{ grade_form.new_grade }}
+          </div>
+
+          <button type="submit" class="btn btn-primary pull-right">提交</button>
+      </form>
+    </div>
+</div>
+
+<!-- /container -->
+{% endblock %}

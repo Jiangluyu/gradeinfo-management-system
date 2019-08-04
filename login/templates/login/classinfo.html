@@ -1,0 +1,47 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}课程信息{% endblock %}
+{% block content %}
+    {% if request.session.is_login %}
+    <div class="panel panel-default">
+        <div class="container">
+          <!-- Default panel contents -->
+            <div class="panel-heading"><h2>学生信息表</h2></div>
+          <div class="panel-body">
+            <p>点击学生姓名查看其成绩</p>
+          </div>
+
+          <!-- Table -->
+          <table class="table table-striped" align="center">
+              <tr>
+                  <th>id</th>
+                  <th>name</th>
+                  <th>gender</th>
+                  <th>age</th>
+                  <th>birth</th>
+              </tr>
+
+                  {% for stu in all_student %}
+                      <tr>
+                      <td>{{ stu.student_id }}</td>
+                      <td><a href="{% url 'gradeinfo' stu.student_id %}"> {{ stu.student_name }} </a></td>
+                      <td>
+                          {% if stu.gender == 1 %}
+                              <p>男</p>
+                          {% else %}
+                              <p>女</p>
+                          {% endif %}
+                      </td>
+                      <td>{{ stu.age }}</td>
+                      <td>{{ stu.birth }}</td>
+                      </tr>
+                  {% endfor %}
+          </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="container">
+            <h1>权限不足，只能访问公开内容！</h1>
+        </div>
+    {% endif %}
+{% endblock %}
